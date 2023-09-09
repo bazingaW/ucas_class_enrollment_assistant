@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         UCAS Class Enrollment Assistant
-// @version      1.7.1
+// @version      1.7.2
 // @description  这是一个方便抢课界面操作的辅助工具。包括的功能有：1. 🚪直达战场： 进入选课系统后，自动跳转到选课页面。（如需查看通知公告 需要临时把本工具禁用） 2. 🚀一键跳转： 点击小火箭，想去哪里点哪里！更有高亮与自动滚动，帮助快速定位课程。 3. ✔快速提交： 不想滚到底部才能提交选课？验证码和提交选课按钮直接整合到面板！ 3.1. 选课、学位课复选框添加到面板中； 3.2. 修复了原版选课系统点击"切换验证码"没反应的bug，现在可以点击验证码图片更新没有加载出来的验证码了； 3.3. 提交选课时自动跳过"确认提交吗"对话框。 4. 🎨标注课程状态： 绿色表示已选上的课程，红色表示已满员的课程。（只有进入选课页面才会更新课程是否已满员）
 // @author       bazingaW
 // @namespace    https://github.com/bazingaW/ucas_class_enrollment_assistant
 // @match        http*://jwxk.ucas.ac.cn/*
+// @match        http*://jwxkts2.ucas.ac.cn/*
 // @icon         https://sep.ucas.ac.cn/favicon.ico
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -792,19 +793,19 @@ function error (msg) {
   'use strict';
 
   // 登录jwxk.ucas.ac.cn后，自动跳转到选课页面
-  if (window.location.href == 'https://jwxk.ucas.ac.cn/notice/view/1') {
-    window.location.href = 'https://jwxk.ucas.ac.cn/courseManage/main';
+  if (window.location.pathname == '/notice/view/1') {
+    window.location.pathname = '/courseManage/main';
     console.log(...prefix('跳转到选课页面'));
   }
 
   
-  if (window.location.href.startsWith('https://jwxk.ucas.ac.cn/courseManage/main')) {
+  if (window.location.pathname.startsWith('/courseManage/main')) {
     // 进入筛选学院页面
     let panel = drawPanel('main');
 
   }
 
-  if (window.location.href.startsWith('https://jwxk.ucas.ac.cn/courseManage/selectCourse')) {
+  if (window.location.pathname.startsWith('/courseManage/selectCourse')) {
     // 进入选课页面
     let panel = drawPanel('selectCourse');
 
